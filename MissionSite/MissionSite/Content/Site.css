@@ -1,0 +1,145 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Center text */
+.center{
+    text-align: center;
+}
+.jumbotron {
+    position: relative;
+    z-index: 1;
+    height:350px;
+    margin-top: -20px;
+}
+.main{
+    padding-top:10%;
+}
+
+.jumbotron .bg {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url(../Content/Images/missionaries.jpg) center center;
+    opacity: .4;
+    width: 100%;
+    height: 100%;
+}
+.mini{
+    width:50px;
+    margin:0 auto;
+    display: block;
+}
+.full{
+    font-size:10em;
+    text-align:center;
+    opacity:.6;
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ #breadcrumbs-one{
+  overflow: hidden;
+  width: 100%;
+}
+
+#breadcrumbs-one li{
+  float: left;
+  margin: 0 .5em 0 1em;
+}
+
+#breadcrumbs-one a{
+  background: #ddd;
+  padding: .7em 1em;
+  float: left;
+  text-decoration: none;
+  color: #444;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+  position: relative;
+}
+
+#breadcrumbs-one a:hover{
+  background: #efc9ab;
+}
+
+#breadcrumbs-one a::before,
+#breadcrumbs-one a::after{
+  content:'';
+  position:absolute;
+  top: 0;
+  bottom: 0;
+  width: 1em;
+  background: #ddd;
+  transform: skew(-10deg);  
+}
+
+#breadcrumbs-one a::before{
+
+  left: -.5em;
+  border-radius: 5px 0 0 5px;
+}
+
+#breadcrumbs-one a:hover::before{
+  background: #efc9ab;
+}
+
+#breadcrumbs-one a::after{
+  right: -.5em;   
+  border-radius: 0 5px 5px 0;
+}
+
+#breadcrumbs-one a:hover::after{
+  background: #efc9ab;
+}
+
+#breadcrumbs-one .current,
+#breadcrumbs-one .current:hover{
+  font-weight: bold;
+  background: none;
+}
+
+#breadcrumbs-one .current::after,
+#breadcrumbs-one .current::before{
+  content: normal;
+}
+
+.lead{
+    text-decoration: none;
+}
+.lead:hover{
+    text-decoration: none;
+    opacity: .75;
+}
+@media(max-width: 768px){
+    .ytp-thumbnail-overlay-image{
+        width: 300px;
+    }
+}
+a:hover{
+    text-decoration: none;
+    opacity: 0.75;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, a, p{
+    font-family: 'Roboto', sans-serif;
+}

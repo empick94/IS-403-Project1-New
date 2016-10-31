@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+<div class="jumbotron">
+    <div class="bg"></div>
+    <h1 class="main">Welcome, new missionaries!</h1>
+    @Html.ActionLink("Excited about your new call? Prepare to serve by connecting with your mission here!", "Missions", "Home", new { }, new { @class = "lead" })
+</div>
+<br />
+<a name="more"></a>
+<a id="scroll-to-bottom" href="#" role="button" title="Click to scroll to more content" data-toggle="tooltip" data-placement="right"><img src="../Content/Images/arrow_down.png" class="mini" /></a>
+
+<div class="container-fluid auto">
+
+    <div class="row">
+        <br />
+        <div class="col-md-6 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-12">
+            <h2>
+                Get stoked about serving!
+                <br />
+                Watch this classic missionary video.
+            </h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/MaDO-Qj5kpo" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-6 col-md-offset-0 col-sm-10 col-sm-offset-1 col-xs-12">
+            <h2>
+                Why does a mission matter?
+                <br />
+                Find out what these youth have to say.
+            </h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/3aKU2rkvFQU" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="row">
+        <br />
+        <br />
+        <h2 class="center">What can I do to prepare?</h2>
+        <div class="col-md-3 center">
+            <h3>Sign up for our newsletter.</h3>
+            <br />
+            <a href="mailto:newmissionary@byu.edu?subject=Please%20add%20me%20to%20the%20new%20missionary%20newsletter!&body=Please%20add%20my%20email%20to%20your%20list!">
+                <div class="glyphicon glyphicon-envelope full"></div>
+            </a>
+        </div>
+        <div class="col-md-3 center">
+            <h3>Find return missionaries.</h3>
+            <br />
+            <a href="@Url.Action("Contact", "Home", new { }, null)">
+                <div class="glyphicon glyphicon-user full"></div>
+            </a>
+        </div>
+        <div class="col-md-3 center">
+            <h3>Attend mission preparation class.</h3>
+            <br />
+            <a href="https://www.lds.org/manual/missionary-preparation-student-manual?lang=eng">
+                <div class="glyphicon glyphicon-globe full"></div>
+            </a>
+        </div>
+        <div class="col-md-3 center">
+            <h3>Study <em>Preach My Gospel</em>.</h3>
+            <br />
+            <a href="http://media.ldscdn.org/pdf/scripture-and-lesson-support/preach-my-gospel-a-guide-to-missionary-service/2005-04-00-preach-my-gospel-a-guide-to-missionary-service-eng.pdf?download=true">
+                <div class="glyphicon glyphicon-book full"></div>
+            </a>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<a id="back-to-top" href="#" role="button"><img src="../Content/Images/arrow_up.png" class="mini" /></a>

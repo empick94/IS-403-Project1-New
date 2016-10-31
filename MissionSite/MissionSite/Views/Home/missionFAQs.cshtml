@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Mission FAQ's";
+}
+<ul id="breadcrumbs-one">
+    <li><a href="~/Home/Missions">Missions</a></li>
+    <li class="active"><a>Mission FAQ's</a></li>
+</ul>
+<h2>Mission FAQ's</h2>
+
+<h3>@ViewBag.messageString</h3>
+
+
+@using (Html.BeginForm("Questions", "Home", FormMethod.Get))
+{
+    <p>Do you have any more questions? Write down your question here. We will answer it soon!</p>
+    <p>@ViewBag.userQuestion</p>
+    @Html.TextArea("Question", null, new { Style = "background:#cccccc;", @cols = 100 })
+    <input type="submit" value="Submit" />
+}
