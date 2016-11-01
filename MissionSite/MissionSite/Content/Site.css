@@ -154,3 +154,18 @@ td{
 div.box img{
     width:100%;
 }
+
+.text {
+    position: static;
+    top: 30px;
+}
+
+.text2 {
+    position: static;
+    top: 10px;
+}
+
+ #map {
+        height: 100%;
+        top:10px;
+    }
