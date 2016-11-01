@@ -130,8 +130,8 @@ namespace MissionSite.Controllers
             else
             {
                 ViewBag.messageString = "Czech/Slovak Mission";
-                ViewBag.latitude = 49.7170645;
-                ViewBag.longitude = 10.9886183;
+                ViewBag.latitude = 49.866006;  
+                ViewBag.longitude = 15.031587;
             }
 
             return View();
