@@ -15,7 +15,7 @@
         <div class="col-md-8 col-sm-6 col-xs-12">
             <table>
                 <tr>
-                    <td>Mission Name:</td>
+                    <td>Mission Name:&nbsp&nbsp&nbsp&nbsp</td>
                     <td>@ViewBag.messageString</td>
                 </tr>
                 <tr>
@@ -53,5 +53,6 @@
         <p>Do you have any more questions? Write down your question here. We will answer it soon!</p>
         <p>@ViewBag.userQuestion</p>
         @Html.TextArea("Question", null, new { Style = "background:#cccccc;", @cols = 100 })
+        <br />
         <input type="submit" value="Submit" />
     }
