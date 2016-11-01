@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Location";
+    }
+
+<h2>Location</h2>
+
+<h3>You can find out the location of your mission here!</h3>
+
+@using (Html.BeginForm("Map", "Home", FormMethod.Get))
+{
+    <fieldset>
+        <h4>Choose a Mission</h4>
+        @Html.DropDownList("Locations")
+        <input type="submit" value="Submit" />
+    </fieldset>
+}

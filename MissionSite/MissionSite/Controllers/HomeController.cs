@@ -101,5 +101,40 @@ namespace MissionSite.Controllers
             ViewBag.userQuestion = Question;
             return View("missionFAQs");
         }
+        
+        public ActionResult Location()
+        {
+            List<SelectListItem> location = new List<SelectListItem>();
+            location.Add(new SelectListItem { Text = "Korea, Busan Mission", Value = "0" });
+            location.Add(new SelectListItem { Text = "Brazil, Rio De Janeiro Mission", Value = "1" });
+            location.Add(new SelectListItem { Text = "Czech/Slovak Mission", Value = "2" });
+            ViewBag.Locations = location;
+
+            return View();
+        }
+
+        public ActionResult Map(string Locations)
+        {
+            if (Locations.Equals("0"))
+            {
+                ViewBag.messageString = "Korea, Busan Mission";
+                ViewBag.latitude = 35.1646501;
+                ViewBag.longitude = 128.9317147;
+            }
+            else if (Locations.Equals("1"))
+            {
+                ViewBag.messageString = "Brazil, Rio De Janeiro Mission";
+                ViewBag.latitude = -22.9109878;
+                ViewBag.longitude = -43.7285266;
+            }
+            else
+            {
+                ViewBag.messageString = "Czech/Slovak Mission";
+                ViewBag.latitude = 49.7170645;
+                ViewBag.longitude = 10.9886183;
+            }
+
+            return View();
+        }
     }
 }
