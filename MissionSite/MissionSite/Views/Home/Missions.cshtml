@@ -8,7 +8,7 @@
 {
     <fieldset>
         <h4>Select a Mission</h4>
-        @Html.DropDownList("Mission")
-        <input type="submit" value="Submit" />
+        @Html.DropDownList("Mission", null, new { id="DropDownList"})
+        <input class="MissionButton" type="submit" value="Learn more!" />
     </fieldset>
 }
