@@ -4,7 +4,10 @@
 <div class="jumbotron">
     <div class="bg"></div>
     <h1 class="main">Welcome, new missionaries!</h1>
-    @Html.ActionLink("Excited about your new call? Prepare to serve by connecting with your mission here!", "Missions", "Home", new { }, new { @class = "lead" })
+    <a href="@Url.Action("Missions", "Home", new { }, null)">
+        <span class="glyphicon glyphicon-plus btn-lg"></span>
+        <span class="h3">Excited about your new call? Connect with your mission here!</span>
+    </a>
 </div>
 <br />
 <a name="more"></a>
@@ -64,6 +67,8 @@
             </a>
         </div>
     </div>
+    <br /><br />
+    <h3 class="center">“After all that has been said, the greatest and most important duty is to preach the Gospel”<br />-Joseph Smith</h3>
 </div>
 <br />
 <br />
