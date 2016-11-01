@@ -5,15 +5,83 @@
     <li><a href="~/Home/Missions">Missions</a></li>
     <li class="active"><a>Mission FAQ's</a></li>
 </ul>
-<h2>Mission FAQ's</h2>
+<br />
+<div class="container box">
+    <h2>Mission Info</h2>
+    <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <img src="~/Content/Images/@ViewBag.flag">
+        </div>
+        <div class="col-md-8 col-sm-6 col-xs-12">
+            <table>
+                <tr>
+                    <td>Mission Name:&nbsp&nbsp&nbsp&nbsp</td>
+                    <td>@ViewBag.messageString</td>
+                </tr>
+                <tr>
+                    <td>President:</td>
+                    <td>@ViewBag.president</td>
+                </tr>
+                <tr>
+                    <td>Address:</td>
+                    <td>@ViewBag.address1<br />@ViewBag.address2<br />@ViewBag.address3<br />@ViewBag.address4<br />@ViewBag.address5<br /></td>
+                </tr>
+                <tr>
+                    <td>Language:</td>
+                    <td>@ViewBag.language</td>
+                </tr>
+                <tr>
+                    <td>Climate:</td>
+                    <td>@ViewBag.climate</td>
+                </tr>
+                <tr>
+                    <td>Religion:</td>
+                    <td>@ViewBag.religion</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
 
-<h3>@ViewBag.messageString</h3>
+    <h2>Mission FAQ's</h2>
 
+    <h3>@ViewBag.messageString</h3>
+    <a data-toggle="collapse" href="#q1" aria-expanded="false" aria-controls="q1">How are missionaries called?</a>
+    <div class="collapse" id="q1">
+        <div class="card card-block">
+            Every missionary who is called and assigned or reassigned to a particular mission is called by revelation through the Lord's servants, the prophets. A member of the Quorum of the Twelve assigns prospective missionaries to one of more than three hundred missions of the Church.
+        </div>
+    </div>
+<br />
+    <a data-toggle="collapse" href="#q2" aria-expanded="false" aria-controls="q2">How can I best prepare spiritually to be a missionary?</a>
+    <div class="collapse" id="q2">
+        <div class="card card-block">
+            Work on strengthening your own understanding and testimony of the gospel by praying daily and studying the scriptures, especially the Book of Mormon. Attend your Church meetings. Participate in seminary or institute, if available. You may share the gospel with a friend, go to teaching appointments with the full-time missionaries, or ask recently returned missionaries about their experiences in the mission field. You may also become familiar with Preach My Gospel, especially chapters 1 and 3. 
+        </div>
+    </div>
+<br />
+    <a data-toggle="collapse" href="#q3" aria-expanded="false" aria-controls="q3">How can I best prepare emotionally to be a missionary?</a>
+    <div class="collapse" id="q3">
+        <div class="card card-block">
+            Elder L. Tom Perry explained: “Missionary service is emotionally demanding. Your support system is going to be withdrawn from you as you leave home and go out into the world. … There will be days of rejection and disappointment. Learn now about your emotional limits, and learn how to control your emotions under the circumstances you will face as a missionary” (L. Tom Perry, “Raising the Bar,” Liahona, Nov. 2007, 48).
+        </div>
+    </div>
+<br />
+    <a data-toggle="collapse" href="#q4" aria-expanded="false" aria-controls="q4">I have many questions about missionary service. Who can best answer them?</a>
+    <div class="collapse" id="q4">
+        <div class="card card-block">
+            Talk with your parents, priesthood leaders, or a trusted leader to help you find answers to your questions. Preach My Gospel and the Missionary Handbook are also great resources. 
+        </div>
+    </div>
 
-@using (Html.BeginForm("Questions", "Home", FormMethod.Get))
-{
-    <p>Do you have any more questions? Write down your question here. We will answer it soon!</p>
-    <p>@ViewBag.userQuestion</p>
-    @Html.TextArea("Question", null, new { Style = "background:#cccccc;", @cols = 100 })
-    <input type="submit" value="Submit" />
-}
+<br />
+<br />
+<br />
+    @using (Html.BeginForm("Questions", "Home", FormMethod.Get))
+    {
+        <p>Do you have any more questions? Write down your question here. We will answer it soon!</p>
+        <p>@ViewBag.userQuestion</p>
+        @Html.TextArea("Question", null, new { Style = "background:#cccccc;", @cols = 100 })
+        <br />
+        <input type="submit" value="Submit" />
+    }

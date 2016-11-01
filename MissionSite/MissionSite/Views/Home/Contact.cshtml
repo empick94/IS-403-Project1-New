@@ -20,7 +20,7 @@
     <h4>Email</h4>
     @Html.TextBoxFor(m => m.Email);
     <h4>Subject</h4>
-    @Html.DropDownList("Subject")
+    @Html.DropDownList("Subject", null, new { @id="DropDownList" })
     <h4>Message Body</h4>
     @Html.TextAreaFor(m => m.Message)
     <br /><br />
