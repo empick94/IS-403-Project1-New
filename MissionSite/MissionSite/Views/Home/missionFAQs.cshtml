@@ -5,15 +5,53 @@
     <li><a href="~/Home/Missions">Missions</a></li>
     <li class="active"><a>Mission FAQ's</a></li>
 </ul>
-<h2>Mission FAQ's</h2>
+<br />
+<div class="container box">
+    <h2>Mission Info</h2>
+    <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <img src="~/Content/Images/@ViewBag.flag">
+        </div>
+        <div class="col-md-8 col-sm-6 col-xs-12">
+            <table>
+                <tr>
+                    <td>Mission Name:</td>
+                    <td>@ViewBag.messageString</td>
+                </tr>
+                <tr>
+                    <td>President:</td>
+                    <td>@ViewBag.president</td>
+                </tr>
+                <tr>
+                    <td>Address:</td>
+                    <td>@ViewBag.address1<br />@ViewBag.address2<br />@ViewBag.address3<br />@ViewBag.address4<br />@ViewBag.address5<br /></td>
+                </tr>
+                <tr>
+                    <td>Language:</td>
+                    <td>@ViewBag.language</td>
+                </tr>
+                <tr>
+                    <td>Climate:</td>
+                    <td>@ViewBag.climate</td>
+                </tr>
+                <tr>
+                    <td>Religion:</td>
+                    <td>@ViewBag.religion</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
 
-<h3>@ViewBag.messageString</h3>
+    <h2>Mission FAQ's</h2>
+
+    <h3>@ViewBag.messageString</h3>
 
 
-@using (Html.BeginForm("Questions", "Home", FormMethod.Get))
-{
-    <p>Do you have any more questions? Write down your question here. We will answer it soon!</p>
-    <p>@ViewBag.userQuestion</p>
-    @Html.TextArea("Question", null, new { Style = "background:#cccccc;", @cols = 100 })
-    <input type="submit" value="Submit" />
-}
+    @using (Html.BeginForm("Questions", "Home", FormMethod.Get))
+    {
+        <p>Do you have any more questions? Write down your question here. We will answer it soon!</p>
+        <p>@ViewBag.userQuestion</p>
+        @Html.TextArea("Question", null, new { Style = "background:#cccccc;", @cols = 100 })
+        <input type="submit" value="Submit" />
+    }
