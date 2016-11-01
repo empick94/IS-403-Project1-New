@@ -1,4 +1,6 @@
-﻿@{
+﻿@model MissionSite.Models.Responce
+
+@{
     ViewBag.Title = "Contact";
 }
 
@@ -9,18 +11,18 @@
 </p>
 
 <!--Contact Form-->
-@using (Html.BeginForm())
+@using (Html.BeginForm("Insert", "Responce", FormMethod.Post))
 {
     <h4>First Name</h4>
-    @Html.TextBox("FirstName");
+    @Html.TextBoxFor(m => m.FirstName);
     <h4>Last Name</h4>
-    @Html.TextBox("LastName");
+    @Html.TextBoxFor(m => m.LastName);
     <h4>Email</h4>
-    @Html.TextBox("Email");
+    @Html.TextBoxFor(m => m.Email);
     <h4>Subject</h4>
     @Html.DropDownList("Subject", null, new { @id="DropDownList" })
     <h4>Message Body</h4>
-    @Html.TextArea("MessageBody")
+    @Html.TextAreaFor(m => m.Message)
     <br /><br />
     <input type="submit" value="Submit">
 }
