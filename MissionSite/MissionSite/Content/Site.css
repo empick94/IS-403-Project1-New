@@ -154,3 +154,6 @@ td{
 div.box img{
     width:100%;
 }
+.card-block{
+    text-indent:10px;
+}
