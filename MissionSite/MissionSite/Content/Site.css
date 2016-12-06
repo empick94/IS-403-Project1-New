@@ -153,23 +153,24 @@ ul{
     }
 }
 @media (max-width: 500px) {
-    iframe {
+    iframe{
         width: 280px;
         height: 157.5px;
-    }
-
-}
-@media(max-width: 768px){
-    .ytp-thumbnail-overlay-image{
-        width: 300px;
     }
 }
 a:hover{
     text-decoration: none;
     opacity: 0.75;
 }
-html, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, a, p{
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, a, p, input{
     font-family: 'Roboto', sans-serif;
+}
+#DropDownList{
+    color: black;
+    font-family: 'Roboto', sans-serif;
+}
+.MissionButton{
+    margin: 5px;
 }
 .container.box {
     border: 1px solid white;
@@ -182,22 +183,10 @@ td{
 div.box img{
     width:100%;
 }
-.card-block{
-    text-indent:10px;
-}
-.text {
-     position: static;
-    padding-top: 10px;
- }
 
-#map {
-    height: 100%;
-    top: 10px;
+.text {
+    position: static;
+   padding-top: 10px;
 }
-#DropDownList{
-    color: black;
-    font-family: 'Roboto', sans-serif;
-}
-.MissionButton{
-    margin: 5px;
-}
+
+ 
