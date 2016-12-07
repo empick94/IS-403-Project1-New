@@ -123,5 +123,19 @@ namespace MissionSite.Controllers
 
             return View();
         }
+
+        //HttpGet
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        //HttpPost
+        [HttpPost]
+        public ActionResult Login()
+        {
+            return View();
+        }
     }
 }
