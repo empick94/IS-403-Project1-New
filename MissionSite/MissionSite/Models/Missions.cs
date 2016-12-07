@@ -18,6 +18,6 @@ namespace MissionSite.Models
         public string Language { get; set; }
         public string Climate { get; set; }
         public string DominantReligion { get; set; }
-        public byte[] binaryString { get; set; }
+        public string FlagOrSymbol { get; set; }
     }
 }
