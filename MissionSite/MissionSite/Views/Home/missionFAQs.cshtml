@@ -12,33 +12,33 @@
     <h2>Mission Info</h2>
     <div class="row">
         <div class="col-md-4 col-sm-6 col-xs-12">
-            <img src="~/Content/Images/@ViewBag.flag">
+            <img src="~/Content/Images/@Html.DisplayFor(ModelItem => Model.missions.FlagOrSymbol)">
         </div>
         <div class="col-md-8 col-sm-6 col-xs-12">
             <table>
                 <tr>
                     <td>Mission Name:&nbsp&nbsp&nbsp&nbsp</td>
-                    <td>@ViewBag.messageString</td>
+                    <td>@Html.DisplayFor(ModelItem => Model.missions.MissionName)</td>
                 </tr>
                 <tr>
                     <td>President:</td>
-                    <td>@Html.DisplayFor(ModelItem => Model.missions.MissionPresName)/td>
+                    <td>@Html.DisplayFor(ModelItem => Model.missions.MissionPresName)</td>
                 </tr>
                 <tr>
                     <td>Address:</td>
-                    <td>@ViewBag.address1<br />@ViewBag.address2<br />@ViewBag.address3<br />@ViewBag.address4<br />@ViewBag.address5<br /></td>
+                    <td>@Html.DisplayFor(ModelItem => Model.missions.MissionAddress)</td>
                 </tr>
                 <tr>
                     <td>Language:</td>
-                    <td>@ViewBag.language</td>
+                    <td>@Html.DisplayFor(ModelItem => Model.missions.Language)</td>
                 </tr>
                 <tr>
                     <td>Climate:</td>
-                    <td>@ViewBag.climate</td>
+                    <td>@Html.DisplayFor(ModelItem => Model.missions.Climate)</td>
                 </tr>
                 <tr>
                     <td>Religion:</td>
-                    <td>@ViewBag.religion</td>
+                    <td>@Html.DisplayFor(ModelItem => Model.missions.DominantReligion)</td>
                 </tr>
             </table>
         </div>
@@ -75,13 +75,26 @@
             Talk with your parents, priesthood leaders, or a trusted leader to help you find answers to your questions. Preach My Gospel and the Missionary Handbook are also great resources. 
         </div>
     </div>
+<br /><br />
+Your questions here!
+<table>
+    @foreach (var item in Model.missionQuestions)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question)
+            </td>
+            <!--add an editor for the question here-->
+        </tr>
+    }
+</table>
 
 <br />
 <br />
 <br />
     @using (Html.BeginForm("missionFAQs", "Home", new { mission=0}, FormMethod.Post))
     {
-        <p>Do you have any more questions? Write down your question here. We will answer it soon!</p>
+        <p>Have a question that's not listed above? Write it down and get an answer!</p>
         <p>@ViewBag.userQuestion</p>
         @Html.TextArea("Question", null, new { Style = "background:#cccccc;", @cols = 100 })
         <br />

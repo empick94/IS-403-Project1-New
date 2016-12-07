@@ -48,66 +48,32 @@ namespace MissionSite.Controllers
 
         public ViewResult missionFAQs(string Mission)//loads facts for the selcted mission. Also has form for new question.
         {
+
+            Missions mission = null;
             if (Mission.Equals("0"))
             {
-                ViewBag.messageString = "Korea Busan Mission";
-                ViewBag.president = "Kenneth S. Barrow";
-                ViewBag.address1 = "Korea Busan Mission";
-                ViewBag.address2 = "Dongnae PO Box 73";
-                ViewBag.address3 = "Busan-si";
-                ViewBag.address4 = "Busan-gwangyeoksi 607-600";
-                ViewBag.address5 = "SOUTH KOREA";
-                ViewBag.language = "Korean";
-                ViewBag.climate = "Moderate";
-                ViewBag.religion = "Korean Buddhism";
-                ViewBag.flag = "korea.png";
-                ViewBag.missionID = 0;
+                mission = db.Missions.Find(1);
+               
             }
+            //JNP put the rest of the missions in here (and put data in tables)
+            MissionMissionQuestions mmq = new MissionMissionQuestions();
+            mmq.missions = mission;//set model mission = url mission
 
-            else if (Mission.Equals("1"))
-            {
-                ViewBag.messageString = "Brazil Rio De Janeiro Mission";
-                ViewBag.president = "Antônio Marcos Cabral de Sousa";
-                ViewBag.address1 = "Brazil Rio De Janeiro Mission";
-                ViewBag.address2 = "Rua Dois de Dezembro 78 salas 703/704";
-                ViewBag.address3 = "Flamengo";
-                ViewBag.address4 = "22220-040 Rio de Janeiro-RJ";
-                ViewBag.address5 = "Brazil";
-                ViewBag.language = "Portuguese";
-                ViewBag.climate = "Hot and humid";
-                ViewBag.religion = "Roman Catholicism";
-                ViewBag.flag = "brazil.png";
-            }
-            else if (Mission.Equals("2"))
-            {
-                ViewBag.messageString = "Czech/Slovak Mission";
-                ViewBag.president = "Jan Pohořelický";
-                ViewBag.address1 = "Czech/Slovak Mission";
-                ViewBag.address2 = "Badeniho 1";
-                ViewBag.address3 = "160 00 Praha 6";
-                ViewBag.address4 = "Czech Republic";
-                ViewBag.language = "Czech and Slovak";
-                ViewBag.climate = "Like Utah";
-                ViewBag.religion = "Roman Catholicism";
-                ViewBag.flag = "czech-slovak.jpg";
-            }
+            //get questions for this mission
+            IEnumerable<MissionQuestions> questions = db.Database.SqlQuery<MissionQuestions>("select * from MissionQuestions where MissionID = " + mmq.missions.MissionID);
+            //add questions to model
+            mmq.missionQuestions = questions;
 
-
-            else
-                ViewBag.messageString = "Other";
-
-
-
-            return View();
+            return View(mmq);
         }
 
         //for question submit button on the mission questions page
         [HttpPost]
-        public ActionResult missionFAQs(FormCollection form, string Mission)
+        public ActionResult missionFAQs(FormCollection form, MissionMissionQuestions mmq)
         {
             MissionQuestions mq = new MissionQuestions();//the new/updated question we will add
 
-            mq.MissionID = int.Parse(Mission);//mission parameter from url
+            mq.MissionID = mmq.missions.MissionID;//mission parameter from url
             mq.UserID = 1;//hard coded for now. but it needs to be the logged in user.
             mq.Question = form["Question"].ToString();//question from the form
 
