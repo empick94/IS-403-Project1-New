@@ -42,6 +42,7 @@ namespace MissionSite.Controllers
             return View();
         }
 
+        [Authorize]
         public ViewResult missionFAQs(string Mission)
         {
             if (Mission.Equals("0"))
@@ -137,18 +138,18 @@ namespace MissionSite.Controllers
             return View();
         }
 
-        //HttpGet
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string Mission)
         {
+            ViewBag.Mission = Mission; 
+
             return View();
         }
 
-        //HttpPost
         [HttpPost]
         public ActionResult Login()
         {
-            return View();
+            return RedirectToAction("missionFAQs", "Home");
         }
     }
 }
