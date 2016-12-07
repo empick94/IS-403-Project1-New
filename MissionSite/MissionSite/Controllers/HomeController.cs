@@ -1,13 +1,17 @@
-﻿using System;
+﻿using MissionSite.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MissionSite.Models;
 
 namespace MissionSite.Controllers
 {
     public class HomeController : Controller
     {
+        private Project1Context db = new Project1Context();//link to the database
+
         // GET: Home
         public ActionResult Index()
         {
@@ -19,7 +23,7 @@ namespace MissionSite.Controllers
             return View();
         }
 
-        public ActionResult Missions()
+        public ActionResult Missions()//page with dropdown for the mission you want to view
         {
             List<SelectListItem> mission = new List<SelectListItem>();
             mission.Add(new SelectListItem { Text = "Korea, Busan Mission", Value = "0" });
@@ -30,7 +34,7 @@ namespace MissionSite.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contact()//page for generic contact form
         {
             List<SelectListItem> subject = new List<SelectListItem>();
             subject.Add(new SelectListItem { Text = "Korea Busan Mission", Value = "0" });
@@ -42,7 +46,7 @@ namespace MissionSite.Controllers
             return View();
         }
 
-        public ViewResult missionFAQs(string Mission)
+        public ViewResult missionFAQs(string Mission)//loads facts for the selcted mission. Also has form for new question.
         {
             if (Mission.Equals("0"))
             {
@@ -57,6 +61,7 @@ namespace MissionSite.Controllers
                 ViewBag.climate = "Moderate";
                 ViewBag.religion = "Korean Buddhism";
                 ViewBag.flag = "korea.png";
+                ViewBag.missionID = 0;
             }
 
             else if (Mission.Equals("1"))
@@ -92,6 +97,22 @@ namespace MissionSite.Controllers
                 ViewBag.messageString = "Other";
 
 
+
+            return View();
+        }
+
+        //for question submit button on the mission questions page
+        [HttpPost]
+        public ActionResult missionFAQs(FormCollection form, string Mission)
+        {
+            MissionQuestions mq = new MissionQuestions();//the new/updated question we will add
+
+            mq.MissionID = int.Parse(Mission);//mission parameter from url
+            mq.UserID = 1;//hard coded for now. but it needs to be the logged in user.
+            mq.Question = form["Question"].ToString();//question from the form
+
+            db.MissionQuestions.Add(mq);//add the new question
+            db.SaveChanges();//save to DB
 
             return View();
         }
