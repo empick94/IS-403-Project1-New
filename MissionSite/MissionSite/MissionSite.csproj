@@ -253,6 +253,7 @@
     <Content Include="Views\Home\Map.cshtml" />
     <Content Include="Views\Responce\Contact.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
