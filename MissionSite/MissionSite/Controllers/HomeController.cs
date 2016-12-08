@@ -5,7 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MissionSite.Models;
+using Newtonsoft.Json;
 using System.Web.Security;
+
 
 namespace MissionSite.Controllers
 {
@@ -138,6 +140,26 @@ namespace MissionSite.Controllers
             return View();
         }
 
+        public ActionResult ajax()
+        {
+            return View();
+        }
+
+        public ActionResult DisplayObject()
+        {
+            Product p1 = new Product("pr1", "name 1", 1000);
+            return Json(p1, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DisplayListObject()
+        {
+            List<Product> listProduct = new List<Product>();
+            listProduct.Add(new Product("pr1", "name 1", 1000));
+            listProduct.Add(new Product("pr2", "name 2", 2000));
+            listProduct.Add(new Product("pr3", "name 3", 3000));
+
+            return Json(listProduct, JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         public ActionResult Login(string Mission)
         {
@@ -165,6 +187,31 @@ namespace MissionSite.Controllers
             }
 
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+
+        // POST: Customers/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "UserID,UserEmail,Password,FirstName,LastName")] Users users)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Users.Add(users);
+                db.SaveChanges();
+
+                return RedirectToAction("missionFAQs");
+            }
+
+            return View("Missions");
         }
     }
 }
