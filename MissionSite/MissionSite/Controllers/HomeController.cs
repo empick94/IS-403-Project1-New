@@ -95,9 +95,9 @@ namespace MissionSite.Controllers
             return View(mmq);
         }
 
-        //for question submit button on the mission questions page
+        //for question submit button on the mission questions page, returns back to mission faq
         [HttpPost]
-        public ActionResult missionFAQs(MissionMissionQuestions mmq)
+        public ActionResult questionEdit(MissionMissionQuestions mmq)
         {
             if (mmq.question.Question != null)//as long as there is a question to add
             {
@@ -113,6 +113,28 @@ namespace MissionSite.Controllers
 
                 return RedirectToAction("missionFAQs", new { Mission = mmq.missions.MissionID.ToString() });
             }
+            return View(mmq);
+        }
+
+        //handles submit for answer edit button, returns back to mission faq
+        [HttpPost]
+        public ActionResult answerEdit(MissionMissionQuestions mmq)
+        {
+            /*if (mmq.missionQuestions.Any != null)//as long as there is a question to add
+            {
+                MissionQuestions mq = new MissionQuestions();//the new/updated question we will add
+
+                mq.MissionID = mmq.missions.MissionID;//mission parameter from url
+                mq.UserID = 1;//hard coded for now. but it needs to be the logged in user.
+                mq.Question = mmq.question.Question;//question from the form
+                mq.UserID = mmq.user.UserID;//set the current user as the asker
+
+                db.MissionQuestions.Add(mq);//add the new question
+                db.SaveChanges();//save to DB
+
+                return RedirectToAction("missionFAQs", new { Mission = mmq.missions.MissionID.ToString() });
+                return null;
+            }*/
             return View(mmq);
         }
 
