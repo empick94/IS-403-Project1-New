@@ -172,6 +172,7 @@
     <Compile Include="Models\MissionMissionQuestions.cs" />
     <Compile Include="Models\MissionQuestions.cs" />
     <Compile Include="Models\Missions.cs" />
+    <Compile Include="Models\MissionsDropDown.cs" />
     <Compile Include="Models\Responce.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
