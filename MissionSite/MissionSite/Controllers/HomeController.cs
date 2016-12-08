@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MissionSite.Models;
+using System.Web.Security;
 
 namespace MissionSite.Controllers
 {
@@ -25,11 +26,22 @@ namespace MissionSite.Controllers
 
         public ActionResult Missions()//page with dropdown for the mission you want to view
         {
+            /*
             List<SelectListItem> mission = new List<SelectListItem>();
             mission.Add(new SelectListItem { Text = "Korea, Busan Mission", Value = "0" });
             mission.Add(new SelectListItem { Text = "Brazil, Rio De Janeiro Mission", Value = "1" });
             mission.Add(new SelectListItem { Text = "Czech/Slovak Mission", Value = "2" });
-            ViewBag.Mission = mission;
+             * */
+            IEnumerable<MissionsDropDown> ieMissions = db.Database.SqlQuery<MissionsDropDown>("SELECT MissionID, MissionName FROM Missions");
+
+            List<SelectListItem> lMissions = new List<SelectListItem>();
+
+            foreach (MissionsDropDown mission in ieMissions)
+            {
+                lMissions.Add(new SelectListItem { Text = mission.MissionName, Value = mission.MissionID.ToString() });
+            }
+
+            ViewBag.Mission = lMissions;
 
             return View();
         }
@@ -46,12 +58,8 @@ namespace MissionSite.Controllers
             return View();
         }
 
-<<<<<<< HEAD
         [Authorize]
-        public ViewResult missionFAQs(string Mission)
-=======
         public ViewResult missionFAQs(string Mission)//loads facts for the selcted mission. Also has form for new question.
->>>>>>> refs/remotes/origin/master
         {
 
             Missions mission = null;
@@ -138,9 +146,24 @@ namespace MissionSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login()
+        public ActionResult Login(FormCollection form, bool rememberMe = false)
         {
-            return RedirectToAction("missionFAQs", "Home");
+            String email = form["UserEmail"].ToString();
+            String password = form["Password"].ToString();
+
+            IEnumerable<Users> ieUsers = db.Database.SqlQuery<Users>("SELECT UserID, UserEmail, Password, FirstName, LastName FROM Users;"); 
+
+            foreach(Users user in ieUsers)
+            {
+                if (String.Equals(email, user.UserEmail) && String.Equals(password, user.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(user.FirstName, rememberMe);
+
+                    return RedirectToAction("missionFAQs, Home");
+                }
+            }
+
+            return View();
         }
     }
 }

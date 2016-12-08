@@ -1,7 +1,17 @@
-﻿
+﻿@model MissionSite.Models.Users
+
 @{
     ViewBag.Title = "Login";
 }
 
 <h2>Login</h2>
+
+@using ( Html.BeginForm("Login", "Home", FormMethod.Post) )
+{
+    <label for="UserEmail">Email</label>
+    @Html.TextBox("UserEmail")
+    <label for="Password">Password</label>
+    @Html.Password("Password")
+    <button type="submit" style="color: black">Login</button>
+}
 
