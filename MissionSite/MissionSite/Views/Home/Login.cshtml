@@ -4,6 +4,7 @@
     ViewBag.Title = "Login";
 }
 
+
 <h2>Login</h2>
 
 @using ( Html.BeginForm("Login", "Home", FormMethod.Post) )
@@ -14,4 +15,6 @@
     @Html.Password("Password")
     <button type="submit" style="color: black">Login</button>
 }
+
+@Html.ActionLink("Create New Account", "Create", null, new { @class = "btn btn-primary btn-sm" })
 
