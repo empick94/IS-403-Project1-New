@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "ajax";
+}
+
+<h2>ajax</h2>
+
+
+
+<h3>Using JSON display a Object</h3>
+<a href="#" class="displayobject">Display Object</a>
+<br />
+<div id="result3"></div>
+
+<h3>Using JSON display List Object</h3>
+<a href="#" class="displaylistobject">Display List Object</a>
+<br />
+<div id="result4"></div>
+
+<div id="message-loding-div">
+
+</div>
+
+<script>
+
+    $('.displayobject').click(function () {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            contentTyoe: 'application/json',
+            url: '@Url.Action("DisplayObject", "Home")',
+            success: function (result) {
+                var s = 'Id: ' + result.Id + '<br>Name: ' +
+                    result.Name+ '<br>Price: ' + result.Price;
+                $('#result3').html(s);
+            }
+        });
+    });
+
+    $('.displaylistobject').click(function () {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            contentTyoe: 'application/json',
+            url: '@Url.Action("DisplayListObject", "Home")',
+            success: function (result) {
+                var s = '';
+                for (var i = 0; i < result.length; i++)
+                    s += '<br>Id: ' + result[i].Id + '<br>Name: ' + result[i].Name +
+                        '<br>Price: ' + result[i].Price + '<br>================='
+                $('#result4').html(s);
+            }
+        });
+    });
+</script>
+

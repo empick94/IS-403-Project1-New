@@ -46,6 +46,14 @@ namespace MissionSite.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Missions(String Mission)
+        {
+            this.Session["Parameter"] = Mission;
+
+            return RedirectToAction("missionFAQs", "Home", new { Mission = Mission });
+        }
+
         public ActionResult Contact()//page for generic contact form
         {
             List<SelectListItem> subject = new List<SelectListItem>();
@@ -61,12 +69,23 @@ namespace MissionSite.Controllers
         [Authorize]
         public ViewResult missionFAQs(string Mission)//loads facts for the selcted mission. Also has form for new question.
         {
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
 
+            //get the user id from the cookie
+            int userID = int.Parse(ticket.Name);
+
+
+            //go to the mission given in the parameter
             Missions mission = db.Missions.Find(int.Parse(Mission));
-           
-            //JNP put the rest of the missions in here (and put data in tables)
+
+            //this object is the one we'll pass to the view. it has user, misison, questions
             MissionMissionQuestions mmq = new MissionMissionQuestions();
             mmq.missions = mission;//set model mission = url mission
+
+            //assing user to question
+            mmq.user = new Users();
+            mmq.user.UserID = userID;
 
             //get questions for this mission
             IEnumerable<MissionQuestions> questions = db.Database.SqlQuery<MissionQuestions>("select * from MissionQuestions where MissionID = " + mmq.missions.MissionID);
@@ -76,20 +95,47 @@ namespace MissionSite.Controllers
             return View(mmq);
         }
 
-        //for question submit button on the mission questions page
+        //for question submit button on the mission questions page, returns back to mission faq
         [HttpPost]
-        public ActionResult missionFAQs(MissionMissionQuestions mmq)
+        public ActionResult questionEdit(MissionMissionQuestions mmq)
         {
-            MissionQuestions mq = new MissionQuestions();//the new/updated question we will add
+            if (mmq.question.Question != null)//as long as there is a question to add
+            {
+                MissionQuestions mq = new MissionQuestions();//the new/updated question we will add
 
-            mq.MissionID = mmq.missions.MissionID;//mission parameter from url
-            mq.UserID = 1;//hard coded for now. but it needs to be the logged in user.
-            mq.Question = mmq.question.Question;//question from the form
+                mq.MissionID = mmq.missions.MissionID;//mission parameter from url
+                mq.UserID = 1;//hard coded for now. but it needs to be the logged in user.
+                mq.Question = mmq.question.Question;//question from the form
+                mq.UserID = mmq.user.UserID;//set the current user as the asker
 
-            db.MissionQuestions.Add(mq);//add the new question
-            db.SaveChanges();//save to DB
+                db.MissionQuestions.Add(mq);//add the new question
+                db.SaveChanges();//save to DB
 
-            return RedirectToAction("missionFAQs", new { Mission = mmq.missions.MissionID.ToString() });
+                return RedirectToAction("missionFAQs", new { Mission = mmq.missions.MissionID.ToString() });
+            }
+            return View(mmq);
+        }
+
+        //handles submit for answer edit button, returns back to mission faq
+        [HttpPost]
+        public ActionResult answerEdit(MissionMissionQuestions mmq)
+        {
+            /*if (mmq.missionQuestions.Any != null)//as long as there is a question to add
+            {
+                MissionQuestions mq = new MissionQuestions();//the new/updated question we will add
+
+                mq.MissionID = mmq.missions.MissionID;//mission parameter from url
+                mq.UserID = 1;//hard coded for now. but it needs to be the logged in user.
+                mq.Question = mmq.question.Question;//question from the form
+                mq.UserID = mmq.user.UserID;//set the current user as the asker
+
+                db.MissionQuestions.Add(mq);//add the new question
+                db.SaveChanges();//save to DB
+
+                return RedirectToAction("missionFAQs", new { Mission = mmq.missions.MissionID.ToString() });
+                return null;
+            }*/
+            return View(mmq);
         }
 
         public ViewResult Questions(string Question)
@@ -97,7 +143,7 @@ namespace MissionSite.Controllers
             ViewBag.userQuestion = Question;
             return View("missionFAQs");
         }
-        
+
         public ActionResult Location()
         {
             List<SelectListItem> location = new List<SelectListItem>();
@@ -126,7 +172,7 @@ namespace MissionSite.Controllers
             else
             {
                 ViewBag.messageString = "Czech/Slovak Mission";
-                ViewBag.latitude = 49.866006;  
+                ViewBag.latitude = 49.866006;
                 ViewBag.longitude = 15.031587;
             }
 
@@ -136,7 +182,7 @@ namespace MissionSite.Controllers
         [HttpGet]
         public ActionResult Login(string Mission)
         {
-            ViewBag.Mission = Mission; 
+            ViewBag.Mission = Mission;
 
             return View();
         }
@@ -147,19 +193,50 @@ namespace MissionSite.Controllers
             String email = form["UserEmail"].ToString();
             String password = form["Password"].ToString();
 
-            IEnumerable<Users> ieUsers = db.Database.SqlQuery<Users>("SELECT UserID, UserEmail, Password, FirstName, LastName FROM Users;"); 
+            IEnumerable<Users> ieUsers = db.Database.SqlQuery<Users>("SELECT UserID, UserEmail, Password, FirstName, LastName FROM Users;");
 
-            foreach(Users user in ieUsers)
+            foreach (Users user in ieUsers)
             {
                 if (String.Equals(email, user.UserEmail) && String.Equals(password, user.Password))
                 {
                     FormsAuthentication.SetAuthCookie(user.UserID.ToString(), rememberMe);
 
-                    return RedirectToAction("missionFAQs", "Home");
+                    return RedirectToAction("missionFAQs", "Home", new { Mission = this.Session["Parameter"] });
                 }
             }
 
             return View();
+        }
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+
+        // POST: Customers/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "UserID,UserEmail,Password,FirstName,LastName")] Users users)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Users.Add(users);
+                db.SaveChanges();
+
+                return RedirectToAction("Missions");
+            }
+
+            return View("Missions");
+        }
+
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();//signs out of your account
+            Session.Abandon(); // it will clear the session at the end of request
+            return RedirectToAction("Index", "Home");
         }
     }
 }
