@@ -61,7 +61,7 @@ namespace MissionSite.Controllers
         [Authorize]
         public ViewResult missionFAQs(string Mission)//loads facts for the selcted mission. Also has form for new question.
         {
-
+            //go to the mission given in the parameter
             Missions mission = db.Missions.Find(int.Parse(Mission));
            
             //JNP put the rest of the missions in here (and put data in tables)
