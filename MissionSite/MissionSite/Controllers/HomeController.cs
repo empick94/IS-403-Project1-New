@@ -63,7 +63,7 @@ namespace MissionSite.Controllers
         {
 
             Missions mission = null;
-            if (Mission.Equals("0"))
+            if (Mission.Equals("1"))
             {
                 mission = db.Missions.Find(1);
                
@@ -82,18 +82,18 @@ namespace MissionSite.Controllers
 
         //for question submit button on the mission questions page
         [HttpPost]
-        public ActionResult missionFAQs(FormCollection form, MissionMissionQuestions mmq)
+        public ActionResult missionFAQs(MissionMissionQuestions mmq)
         {
             MissionQuestions mq = new MissionQuestions();//the new/updated question we will add
 
             mq.MissionID = mmq.missions.MissionID;//mission parameter from url
             mq.UserID = 1;//hard coded for now. but it needs to be the logged in user.
-            mq.Question = form["Question"].ToString();//question from the form
+            mq.Question = mmq.question.Question;//question from the form
 
             db.MissionQuestions.Add(mq);//add the new question
             db.SaveChanges();//save to DB
 
-            return View();
+            return RedirectToAction("missionFAQs", new { Mission = mmq.missions.MissionID.ToString() });
         }
 
         public ViewResult Questions(string Question)
