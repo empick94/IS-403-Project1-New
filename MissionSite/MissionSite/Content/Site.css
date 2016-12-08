@@ -189,4 +189,7 @@ div.box img{
    padding-top: 10px;
 }
 
- 
+ /*override off-color in bootstrap table*/
+ table{
+     background-color:transparent;
+ }

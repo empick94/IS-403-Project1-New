@@ -21,8 +21,9 @@ namespace MissionSite.Models
         public int UserID { get; set; }
         public virtual Users user { get; set; }
 
-         [DataType(DataType.MultilineText)]
+        [DataType(DataType.MultilineText)]
         public string Question { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Answer { get; set; }
     }
 }
