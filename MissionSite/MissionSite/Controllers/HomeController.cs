@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MissionSite.Models;
+using Newtonsoft.Json;
+
 
 namespace MissionSite.Controllers
 {
@@ -122,6 +124,27 @@ namespace MissionSite.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult ajax()
+        {
+            return View();
+        }
+
+        public ActionResult DisplayObject()
+        {
+            Product p1 = new Product("pr1", "name 1", 1000);
+            return Json(p1, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DisplayListObject()
+        {
+            List<Product> listProduct = new List<Product>();
+            listProduct.Add(new Product("pr1", "name 1", 1000));
+            listProduct.Add(new Product("pr2", "name 2", 2000));
+            listProduct.Add(new Product("pr3", "name 3", 3000));
+            
+            return Json(listProduct, JsonRequestBehavior.AllowGet);
         }
     }
 }
