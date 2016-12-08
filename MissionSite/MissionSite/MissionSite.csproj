@@ -251,7 +251,7 @@
     <Content Include="Views\Home\Missions.cshtml" />
     <Content Include="Views\Home\Location.cshtml" />
     <Content Include="Views\Home\Map.cshtml" />
-    <Content Include="Views\Responce\Contact.cshtml" />
+    <Content Include="Views\Response\Contact.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
