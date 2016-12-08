@@ -153,7 +153,7 @@ namespace MissionSite.Controllers
             {
                 if (String.Equals(email, user.UserEmail) && String.Equals(password, user.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(user.FirstName, rememberMe);
+                    FormsAuthentication.SetAuthCookie(user.UserID.ToString(), rememberMe);
 
                     return RedirectToAction("missionFAQs", "Home");
                 }
