@@ -199,12 +199,23 @@ namespace MissionSite.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(user.UserID.ToString(), rememberMe);
 
-                    return RedirectToAction("missionFAQs", "Home", new { Mission = this.Session["Parameter"] });
+                    //saves name as session variable to be used in top nav bar
+                    this.Session["UserName"] = " " + user.FirstName;
+
+                    if (this.Session["Parameter"] != null)
+                    {
+                        return RedirectToAction("missionFAQs", "Home", new { Mission = this.Session["Parameter"] });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
 
             return View();
         }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -217,17 +228,32 @@ namespace MissionSite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,UserEmail,Password,FirstName,LastName")] Users users)
+        public ActionResult Create([Bind(Include = "UserID,UserEmail,Password,FirstName,LastName")] Users users, bool rememberMe = false)
         {
             if (ModelState.IsValid)
             {
                 db.Users.Add(users);
                 db.SaveChanges();
 
-                return RedirectToAction("Missions");
+                String email = users.UserEmail;
+                String password = users.Password;
+
+                IEnumerable<Users> ieUsers = db.Database.SqlQuery<Users>("SELECT UserID, UserEmail, Password, FirstName, LastName FROM Users;");
+
+                foreach (Users user in ieUsers)
+                {
+                    if (String.Equals(email, user.UserEmail) && String.Equals(password, user.Password))
+                    {
+                        FormsAuthentication.SetAuthCookie(user.UserID.ToString(), rememberMe);
+
+                        return RedirectToAction("missionFAQs", "Home", new { Mission = this.Session["Parameter"] });
+                    }
+                }
+
+                return RedirectToAction("Login");
             }
 
-            return View("Missions");
+            return View();
         }
 
         public ActionResult LogOff()
@@ -235,6 +261,21 @@ namespace MissionSite.Controllers
             FormsAuthentication.SignOut();//signs out of your account
             Session.Abandon(); // it will clear the session at the end of request
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult ajax()
+        {
+            return View();
+        }
+
+        public ActionResult DisplayUser()
+        {
+            IEnumerable<Users> ieUsers = db.Database.SqlQuery<Users>("SELECT UserID, UserEmail, Password, FirstName, LastName FROM Users;");
+            foreach (Users users in ieUsers)
+            {
+                return Json(ieUsers, JsonRequestBehavior.AllowGet);
+            }
+            return View();
         }
     }
 }
