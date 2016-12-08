@@ -15,7 +15,7 @@ namespace MissionSite.Models
 
         [Required(ErrorMessage="Please enter your first name.")]
         public String FirstName { get; set; }
-        
+
         [Required(ErrorMessage = "Please enter your last name.")]
         public String LastName { get; set; }
 
