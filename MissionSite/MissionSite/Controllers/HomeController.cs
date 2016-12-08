@@ -74,11 +74,11 @@ namespace MissionSite.Controllers
 
             //get the user id from the cookie
             int userID = int.Parse(ticket.Name);
-            
+
 
             //go to the mission given in the parameter
             Missions mission = db.Missions.Find(int.Parse(Mission));
-           
+
             //this object is the one we'll pass to the view. it has user, misison, questions
             MissionMissionQuestions mmq = new MissionMissionQuestions();
             mmq.missions = mission;//set model mission = url mission
@@ -121,7 +121,7 @@ namespace MissionSite.Controllers
             ViewBag.userQuestion = Question;
             return View("missionFAQs");
         }
-        
+
         public ActionResult Location()
         {
             List<SelectListItem> location = new List<SelectListItem>();
@@ -150,7 +150,7 @@ namespace MissionSite.Controllers
             else
             {
                 ViewBag.messageString = "Czech/Slovak Mission";
-                ViewBag.latitude = 49.866006;  
+                ViewBag.latitude = 49.866006;
                 ViewBag.longitude = 15.031587;
             }
 
@@ -160,7 +160,7 @@ namespace MissionSite.Controllers
         [HttpGet]
         public ActionResult Login(string Mission)
         {
-            ViewBag.Mission = Mission; 
+            ViewBag.Mission = Mission;
 
             return View();
         }
@@ -171,9 +171,9 @@ namespace MissionSite.Controllers
             String email = form["UserEmail"].ToString();
             String password = form["Password"].ToString();
 
-            IEnumerable<Users> ieUsers = db.Database.SqlQuery<Users>("SELECT UserID, UserEmail, Password, FirstName, LastName FROM Users;"); 
+            IEnumerable<Users> ieUsers = db.Database.SqlQuery<Users>("SELECT UserID, UserEmail, Password, FirstName, LastName FROM Users;");
 
-            foreach(Users user in ieUsers)
+            foreach (Users user in ieUsers)
             {
                 if (String.Equals(email, user.UserEmail) && String.Equals(password, user.Password))
                 {
@@ -184,6 +184,37 @@ namespace MissionSite.Controllers
             }
 
             return View();
+        }
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+
+        // POST: Customers/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "UserID,UserEmail,Password,FirstName,LastName")] Users users)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Users.Add(users);
+                db.SaveChanges();
+
+                return RedirectToAction("Missions");
+            }
+
+            return View("Missions");
+        }
+
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();//signs out of your account
+            Session.Abandon(); // it will clear the session at the end of request
+            return RedirectToAction("Index", "Home");
         }
     }
 }
