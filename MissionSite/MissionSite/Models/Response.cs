@@ -7,15 +7,15 @@ using System.Web;
 
 namespace MissionSite.Models
 {
-    [Table("Responce")]
-    public class Responce
+    [Table("Response")]
+    public class Response
     {
         [Key]
-        public int ResponceID { get; set; }
+        public int ResponseID { get; set; }
 
         [Required(ErrorMessage="Please enter your first name.")]
         public String FirstName { get; set; }
-
+        
         [Required(ErrorMessage = "Please enter your last name.")]
         public String LastName { get; set; }
 
