@@ -169,7 +169,11 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MissionMissionQuestions.cs" />
+    <Compile Include="Models\MissionQuestions.cs" />
+    <Compile Include="Models\Missions.cs" />
     <Compile Include="Models\Responce.cs" />
+    <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -253,6 +257,7 @@
     <Content Include="Views\Home\Map.cshtml" />
     <Content Include="Views\Response\Contact.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
