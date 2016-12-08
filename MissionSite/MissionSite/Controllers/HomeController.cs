@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using MissionSite.Models;
 using Newtonsoft.Json;
+using System.Web.Security;
 
 
 namespace MissionSite.Controllers
@@ -27,11 +28,22 @@ namespace MissionSite.Controllers
 
         public ActionResult Missions()//page with dropdown for the mission you want to view
         {
+            /*
             List<SelectListItem> mission = new List<SelectListItem>();
             mission.Add(new SelectListItem { Text = "Korea, Busan Mission", Value = "0" });
             mission.Add(new SelectListItem { Text = "Brazil, Rio De Janeiro Mission", Value = "1" });
             mission.Add(new SelectListItem { Text = "Czech/Slovak Mission", Value = "2" });
-            ViewBag.Mission = mission;
+             * */
+            IEnumerable<MissionsDropDown> ieMissions = db.Database.SqlQuery<MissionsDropDown>("SELECT MissionID, MissionName FROM Missions");
+
+            List<SelectListItem> lMissions = new List<SelectListItem>();
+
+            foreach (MissionsDropDown mission in ieMissions)
+            {
+                lMissions.Add(new SelectListItem { Text = mission.MissionName, Value = mission.MissionID.ToString() });
+            }
+
+            ViewBag.Mission = lMissions;
 
             return View();
         }
@@ -48,15 +60,12 @@ namespace MissionSite.Controllers
             return View();
         }
 
+        [Authorize]
         public ViewResult missionFAQs(string Mission)//loads facts for the selcted mission. Also has form for new question.
         {
-
-            Missions mission = null;
-            if (Mission.Equals("0"))
-            {
-                mission = db.Missions.Find(1);
-               
-            }
+            //go to the mission given in the parameter
+            Missions mission = db.Missions.Find(int.Parse(Mission));
+           
             //JNP put the rest of the missions in here (and put data in tables)
             MissionMissionQuestions mmq = new MissionMissionQuestions();
             mmq.missions = mission;//set model mission = url mission
@@ -71,18 +80,18 @@ namespace MissionSite.Controllers
 
         //for question submit button on the mission questions page
         [HttpPost]
-        public ActionResult missionFAQs(FormCollection form, MissionMissionQuestions mmq)
+        public ActionResult missionFAQs(MissionMissionQuestions mmq)
         {
             MissionQuestions mq = new MissionQuestions();//the new/updated question we will add
 
             mq.MissionID = mmq.missions.MissionID;//mission parameter from url
             mq.UserID = 1;//hard coded for now. but it needs to be the logged in user.
-            mq.Question = form["Question"].ToString();//question from the form
+            mq.Question = mmq.question.Question;//question from the form
 
             db.MissionQuestions.Add(mq);//add the new question
             db.SaveChanges();//save to DB
 
-            return View();
+            return RedirectToAction("missionFAQs", new { Mission = mmq.missions.MissionID.ToString() });
         }
 
         public ViewResult Questions(string Question)
@@ -143,8 +152,36 @@ namespace MissionSite.Controllers
             listProduct.Add(new Product("pr1", "name 1", 1000));
             listProduct.Add(new Product("pr2", "name 2", 2000));
             listProduct.Add(new Product("pr3", "name 3", 3000));
-            
+
             return Json(listProduct, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult Login(string Mission)
+        {
+            ViewBag.Mission = Mission; 
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(FormCollection form, bool rememberMe = false)
+        {
+            String email = form["UserEmail"].ToString();
+            String password = form["Password"].ToString();
+
+            IEnumerable<Users> ieUsers = db.Database.SqlQuery<Users>("SELECT UserID, UserEmail, Password, FirstName, LastName FROM Users;"); 
+
+            foreach(Users user in ieUsers)
+            {
+                if (String.Equals(email, user.UserEmail) && String.Equals(password, user.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(user.UserID.ToString(), rememberMe);
+
+                    return RedirectToAction("missionFAQs", "Home");
+                }
+            }
+
+            return View();
         }
     }
 }
