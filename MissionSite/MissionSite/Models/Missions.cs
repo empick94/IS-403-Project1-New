@@ -11,7 +11,7 @@ namespace MissionSite.Models
     public class Missions
     {
         [Key]
-        public  int MissionID { get; set; }
+        public int MissionID { get; set; }
         public string MissionName { get; set; }
         public string MissionPresName { get; set; }
         public string MissionAddress { get; set; }

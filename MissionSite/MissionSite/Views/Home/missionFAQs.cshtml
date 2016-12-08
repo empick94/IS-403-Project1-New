@@ -92,11 +92,13 @@ Your questions here!
 <br />
 <br />
 <br />
-    @using (Html.BeginForm("missionFAQs", "Home", new { mission=0}, FormMethod.Post))
+    @using (Html.BeginForm("missionFAQs", "Home", FormMethod.Post))
     {
+        @Html.HiddenFor(model => Model.missions.MissionID)
         <p>Have a question that's not listed above? Write it down and get an answer!</p>
-        <p>@ViewBag.userQuestion</p>
-        @Html.TextArea("Question", null, new { Style = "background:#cccccc;", @cols = 100 })
+        
+        @Html.EditorFor(model => Model.question.Question)
+        @Html.HiddenFor(model => Model.missionQuestions)
         <br />
         <input type="submit" value="Submit" />
     }
