@@ -172,6 +172,7 @@
     <Compile Include="Models\MissionMissionQuestions.cs" />
     <Compile Include="Models\MissionQuestions.cs" />
     <Compile Include="Models\Missions.cs" />
+    <Compile Include="Models\MissionsDropDown.cs" />
     <Compile Include="Models\Responce.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -255,8 +256,9 @@
     <Content Include="Views\Home\Missions.cshtml" />
     <Content Include="Views\Home\Location.cshtml" />
     <Content Include="Views\Home\Map.cshtml" />
-    <Content Include="Views\Responce\Contact.cshtml" />
+    <Content Include="Views\Response\Contact.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
