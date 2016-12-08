@@ -48,6 +48,14 @@ namespace MissionSite.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Missions(String Mission)
+        {
+            this.Session["Parameter"] = Mission;
+
+            return RedirectToAction("missionFAQs", "Home", new { Mission = Mission });
+        }
+
         public ActionResult Contact()//page for generic contact form
         {
             List<SelectListItem> subject = new List<SelectListItem>();
@@ -182,7 +190,7 @@ namespace MissionSite.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(user.UserID.ToString(), rememberMe);
 
-                    return RedirectToAction("missionFAQs", "Home");
+                    return RedirectToAction("missionFAQs", "Home", new { Mission = this.Session["Parameter"] });
                 }
             }
 
