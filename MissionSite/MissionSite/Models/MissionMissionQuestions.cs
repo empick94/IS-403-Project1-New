@@ -12,5 +12,6 @@ namespace MissionSite.Models
         public Missions missions { get; set; }//stores the mission info
         public IEnumerable<MissionQuestions> missionQuestions { get; set; }//stores all the questions
         public MissionQuestions question { get; set; }//for one new question from the page
+        public Users user { get; set; }//the logged in user who asks the question
     }
 }
