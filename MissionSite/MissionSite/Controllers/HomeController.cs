@@ -159,7 +159,7 @@ namespace MissionSite.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(user.FirstName, rememberMe);
 
-                    return RedirectToAction("missionFAQs, Home");
+                    return RedirectToAction("missionFAQs", "Home");
                 }
             }
 
