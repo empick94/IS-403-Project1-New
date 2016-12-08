@@ -62,12 +62,8 @@ namespace MissionSite.Controllers
         public ViewResult missionFAQs(string Mission)//loads facts for the selcted mission. Also has form for new question.
         {
 
-            Missions mission = null;
-            if (Mission.Equals("1"))
-            {
-                mission = db.Missions.Find(1);
-               
-            }
+            Missions mission = db.Missions.Find(int.Parse(Mission));
+           
             //JNP put the rest of the missions in here (and put data in tables)
             MissionMissionQuestions mmq = new MissionMissionQuestions();
             mmq.missions = mission;//set model mission = url mission
