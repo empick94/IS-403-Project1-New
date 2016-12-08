@@ -63,6 +63,11 @@ namespace MissionSite.Controllers
         [Authorize]
         public ViewResult missionFAQs(string Mission)//loads facts for the selcted mission. Also has form for new question.
         {
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+
+            int userID = int.Parse(ticket.Name);
+
             //go to the mission given in the parameter
             Missions mission = db.Missions.Find(int.Parse(Mission));
            
