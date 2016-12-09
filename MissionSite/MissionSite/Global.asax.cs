@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using MissionSite.Models;
 using MissionSite.DAL;
+using MissionSite.App_Start;
 
 namespace MissionSite
 {
@@ -15,6 +17,7 @@ namespace MissionSite
     {
         protected void Application_Start()
         {
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             Database.SetInitializer<Project1Context>(null);
 
             AreaRegistration.RegisterAllAreas();

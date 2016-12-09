@@ -246,7 +246,18 @@ namespace MissionSite.Controllers
                     {
                         FormsAuthentication.SetAuthCookie(user.UserID.ToString(), rememberMe);
 
-                        return RedirectToAction("missionFAQs", "Home", new { Mission = this.Session["Parameter"] });
+                        //saves name as session variable to be used in top nav bar
+                        this.Session["UserName"] = " " + user.FirstName;
+
+                        //checks for mission Id
+                        if (this.Session["Parameter"] != null)
+                        {
+                            return RedirectToAction("missionFAQs", "Home", new { Mission = this.Session["Parameter"] });
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
                 }
 
