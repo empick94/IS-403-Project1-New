@@ -53,6 +53,7 @@
         <p>*Denotes an unanswered question. Feel free to help out and answer a question!</p>
     </div>
 </div>
+
 <div class="row">
     <div class="col-xs-offset-1">
         @foreach (var item in Model.missionQuestions)
@@ -65,13 +66,14 @@
                         <strong><a data-toggle="collapse" href="#@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()" aria-expanded="false" aria-controls="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()">@Html.DisplayFor(modelItem => item.Question).ToString() *</a></strong>
                         <div class="collapse" id="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()">
                             <div class="card card-block">
+                                @Html.Hidden("QID", item.MissionQuestionsID)
+                                @Html.Hidden("MID", Model.missions.MissionID)
                                 &nbsp;&nbsp;Answer this quesion:<br />
-                                &nbsp;&nbsp;@Html.EditorFor(model => Model.question.Answer) <br />
+                                &nbsp;&nbsp;@Html.TextArea("Answer") <br />
                                 &nbsp;&nbsp;<input type="submit" value="Submit answer" />
                             </div>
                         </div>
                     </div>
-                    <br />
                 }
                 else
                 {
@@ -80,9 +82,11 @@
                         <div class="collapse" id="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()">
                             <div class="card card-block">
                                 &nbsp;&nbsp;@Html.DisplayFor(modelItem => item.Answer)<br />
+                                @Html.Hidden("QID", item.MissionQuestionsID)
+                                @Html.Hidden("MID", Model.missions.MissionID)
                                 &nbsp;&nbsp;&nbsp;&nbsp;<a style="text-align:right;" data-toggle="collapse" href="#@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()a" aria-expanded="false" aria-controls="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()a;">Edit answer</a>
                                 <div class="collapse" id="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()a">
-                                    &nbsp;&nbsp;@Html.EditorFor(modelItem => item.Answer) <br />
+                                    &nbsp;&nbsp;@Html.TextArea("Answer")<br />
                                     &nbsp;&nbsp;<input type="submit" value="Submit Answer" />
                                 </div>
                             </div>
