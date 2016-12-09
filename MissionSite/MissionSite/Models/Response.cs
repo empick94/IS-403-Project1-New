@@ -13,7 +13,7 @@ namespace MissionSite.Models
         [Key]
         public int ResponseID { get; set; }
 
-        [Required(ErrorMessage="Please enter your first name.")]
+        [Required(ErrorMessage = "Please enter your first name.")]
         public String FirstName { get; set; }
 
         [Required(ErrorMessage = "Please enter your last name.")]
