@@ -171,10 +171,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ResponceController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAL\Project1Context.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -185,7 +188,6 @@
     <Compile Include="Models\MissionMissionQuestions.cs" />
     <Compile Include="Models\MissionQuestions.cs" />
     <Compile Include="Models\Missions.cs" />
-    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\MissionsDropDown.cs" />
     <Compile Include="Models\Responce.cs" />
     <Compile Include="Models\Users.cs" />
@@ -272,7 +274,6 @@
     <Content Include="Views\Home\Map.cshtml" />
     <Content Include="Views\Responce\Contact.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\ajax.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
   </ItemGroup>
