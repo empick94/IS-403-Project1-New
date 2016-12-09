@@ -8,11 +8,11 @@ using System.Web.Mvc;
 
 namespace MissionSite.Controllers
 {
-    public class ResponceController : Controller
+    public class ResponseController : Controller
     {
         private Project1Context db = new Project1Context();
 
-        // GET: Responce
+        // GET: Response
         public ActionResult Contact()
         {
 
@@ -21,7 +21,7 @@ namespace MissionSite.Controllers
 
         public ActionResult Insert(String FirstName, String LastName, String Email, String Subject, String Message)
         {
-            db.Database.ExecuteSqlCommand("INSERT INTO Responce (FirstName, LastName, Email, Subject, Message) Values ('" + FirstName + "', '" + LastName + "', '" + Email + "', '" + Subject + "', '" + Message + "')");
+            db.Database.ExecuteSqlCommand("INSERT INTO Response (FirstName, LastName, Email, Subject, Message) Values ('" + FirstName + "', '" + LastName + "', '" + Email + "', '" + Subject + "', '" + Message + "')");
 
             return RedirectToAction("Contact", "Home");
         }

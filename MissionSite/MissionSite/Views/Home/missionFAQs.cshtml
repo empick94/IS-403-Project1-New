@@ -3,11 +3,13 @@
 @{
     ViewBag.Title = "Mission FAQ's";
 }
+
 <ul id="breadcrumbs-one">
     <li><a href="~/Home/Missions">Missions</a></li>
     <li class="active"><a>Mission FAQ's</a></li>
 </ul>
 <br />
+
 <div class="container box">
     <h2>Mission Info</h2>
     <div class="row">
@@ -43,93 +45,72 @@
             </table>
         </div>
     </div>
-    </div>
+</div>
 
-    <h2>Mission FAQ's</h2>
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Mission FAQs</h2>
+        <p>*Denotes an unanswered question. Feel free to help out and answer a question!</p>
+    </div>
+</div>
 
-    <h3>@ViewBag.messageString</h3>
-    <a data-toggle="collapse" href="#q1" aria-expanded="false" aria-controls="q1">How are missionaries called?</a>
-    <div class="collapse" id="q1">
-        <div class="card card-block">
-            Every missionary who is called and assigned or reassigned to a particular mission is called by revelation through the Lord's servants, the prophets. A member of the Quorum of the Twelve assigns prospective missionaries to one of more than three hundred missions of the Church.
-        </div>
-    </div>
-<br />
-    <a data-toggle="collapse" href="#q2" aria-expanded="false" aria-controls="q2">How can I best prepare spiritually to be a missionary?</a>
-    <div class="collapse" id="q2">
-        <div class="card card-block">
-            Work on strengthening your own understanding and testimony of the gospel by praying daily and studying the scriptures, especially the Book of Mormon. Attend your Church meetings. Participate in seminary or institute, if available. You may share the gospel with a friend, go to teaching appointments with the full-time missionaries, or ask recently returned missionaries about their experiences in the mission field. You may also become familiar with Preach My Gospel, especially chapters 1 and 3. 
-        </div>
-    </div>
-<br />
-    <a data-toggle="collapse" href="#q3" aria-expanded="false" aria-controls="q3">How can I best prepare emotionally to be a missionary?</a>
-    <div class="collapse" id="q3">
-        <div class="card card-block">
-            Elder L. Tom Perry explained: “Missionary service is emotionally demanding. Your support system is going to be withdrawn from you as you leave home and go out into the world. … There will be days of rejection and disappointment. Learn now about your emotional limits, and learn how to control your emotions under the circumstances you will face as a missionary” (L. Tom Perry, “Raising the Bar,” Liahona, Nov. 2007, 48).
-        </div>
-    </div>
-<br />
-    <a data-toggle="collapse" href="#q4" aria-expanded="false" aria-controls="q4">I have many questions about missionary service. Who can best answer them?</a>
-    <div class="collapse" id="q4">
-        <div class="card card-block">
-            Talk with your parents, priesthood leaders, or a trusted leader to help you find answers to your questions. Preach My Gospel and the Missionary Handbook are also great resources. 
-        </div>
-    </div>
-<br /><br />
-<h2>Have questions?</h2>
-<p>* denotes an unanswered question. Feel free to help out and answer a question.</p>
-
-    @foreach (var item in Model.missionQuestions)
-    {
-        using (Html.BeginForm("answerEdit", "Home", FormMethod.Post))
+<div class="row">
+    <div class="col-xs-offset-1">
+        @foreach (var item in Model.missionQuestions)
         {
-            if (String.IsNullOrEmpty(item.Answer))//display differently if there's no answer
+            using (Html.BeginForm("answerEdit", "Home", FormMethod.Post))
             {
-                <div class="row">
-
-                    <strong><a data-toggle="collapse" href="#@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()" aria-expanded="false" aria-controls="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()">@Html.DisplayFor(modelItem => item.Question).ToString() *</a></strong>
-                    <div class="collapse" id="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()">
-                        <div class="card card-block">
-                            &nbsp;&nbsp;Answer this quesion:<br />
-                            &nbsp;&nbsp;@Html.EditorFor(model => Model.question.Answer) <br />
-                            &nbsp;&nbsp;<input type="submit" value="Submit answer" />
-                        </div>
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="row">
-                    <strong><a data-toggle="collapse" href="#@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()" aria-expanded="false" aria-controls="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()">@Html.DisplayFor(modelItem => item.Question).ToString() </a></strong>
-                    <div class="collapse" id="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()">
-                        <div class="card card-block">
-                            &nbsp;&nbsp;@Html.DisplayFor(modelItem => item.Answer)<br />
-                            &nbsp;&nbsp;&nbsp;&nbsp;<a style="text-align:right;" data-toggle="collapse" href="#@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()a" aria-expanded="false" aria-controls="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()a;">Edit answer</a>
-                            <div class="collapse" id="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()a">
-                                &nbsp;&nbsp;@Html.EditorFor(modelItem => item.Answer) <br />
-                                &nbsp;&nbsp;<input type="submit" value="Submit Answer" />
+                if (String.IsNullOrEmpty(item.Answer))//display differently if there's no answer
+                {
+                    <div class="row">
+                        <strong><a data-toggle="collapse" href="#@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()" aria-expanded="false" aria-controls="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()"><span class="glyphicon-plus"></span> @Html.DisplayFor(modelItem => item.Question).ToString() *</a></strong>
+                        <div class="collapse" id="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()">
+                            <div class="card card-block">
+                                @Html.Hidden("QID", item.MissionQuestionsID)
+                                @Html.Hidden("MID", Model.missions.MissionID)
+                                &nbsp;&nbsp;Answer this quesion:<br />
+                                &nbsp;&nbsp;@Html.TextArea("Answer") <br />
+                                &nbsp;&nbsp;<input type="submit" value="Submit answer" />
                             </div>
                         </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <strong><a data-toggle="collapse" href="#@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()" aria-expanded="false" aria-controls="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()"><span class="glyphicon-plus"></span> @Html.DisplayFor(modelItem => item.Question).ToString() </a></strong>
+                        <div class="collapse" id="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()">
+                            <div class="card card-block">
+                                @Html.Hidden("QID", item.MissionQuestionsID)
+                            	@Html.Hidden("MID", Model.missions.MissionID)
+								&nbsp;&nbsp;@Html.DisplayFor(modelItem => item.Answer)<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;<a style="text-align:right;" data-toggle="collapse" href="#@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()a" aria-expanded="false" aria-controls="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()a;">Edit answer</a>
+                                <div class="collapse" id="@Html.DisplayFor(modelItem => item.MissionQuestionsID).ToString()a">
+                                    &nbsp;&nbsp;@Html.TextArea("Answer")<br />
+                                    &nbsp;&nbsp;<input type="submit" value="Submit Answer" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                }
             }
         }
+    </div>
+</div>
 
-
-    }
-
-
-<br />
-<br />
-<br />
-    @using (Html.BeginForm("questionEdit", "Home", FormMethod.Post))
-    {
-        @Html.HiddenFor(model => Model.missions.MissionID)
-        <p>Have a question that's not listed above? Write it down and get an answer!</p>
-        
-        @Html.EditorFor(model => Model.question.Question)
-        @Html.HiddenFor(model => Model.missionQuestions)
-        @Html.HiddenFor(model => Model.user.UserID)
-        <br />
-    <input type="submit" value="Submit question" />
-    }
+<div class="row">
+    <div class="col-sm-12">
+        @using (Html.BeginForm("questionEdit", "Home", FormMethod.Post))
+        {
+            @Html.HiddenFor(model => Model.missions.MissionID)
+            <h2>Have more questions?</h2>
+            <p>Post your question and let our returned missionaries respond with an answer!</p>
+            @Html.EditorFor(model => Model.question.Question)
+            @Html.HiddenFor(model => Model.missionQuestions)
+            @Html.HiddenFor(model => Model.user.UserID)
+            <br />
+            <input type="submit" value="Submit question" />
+        }
+    </div>
+</div>

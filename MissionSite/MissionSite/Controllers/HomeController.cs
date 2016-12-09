@@ -118,24 +118,22 @@ namespace MissionSite.Controllers
 
         //handles submit for answer edit button, returns back to mission faq
         [HttpPost]
-        public ActionResult answerEdit(MissionMissionQuestions mmq)
+        public ActionResult answerEdit(FormCollection form)
         {
-            /*if (mmq.missionQuestions.Any != null)//as long as there is a question to add
+            string ans = form["Answer"].ToString();
+            string qid = form.Get("QID");
+            string mid = form.Get("MID");
+
+            if (!String.IsNullOrEmpty(ans))//as long as there is a question to add
             {
-                MissionQuestions mq = new MissionQuestions();//the new/updated question we will add
+                MissionQuestions mq = new MissionQuestions();//the new/updated answer we will add
 
-                mq.MissionID = mmq.missions.MissionID;//mission parameter from url
-                mq.UserID = 1;//hard coded for now. but it needs to be the logged in user.
-                mq.Question = mmq.question.Question;//question from the form
-                mq.UserID = mmq.user.UserID;//set the current user as the asker
+                //update this quesiton in the database
+                db.Database.ExecuteSqlCommand("update MissionQuestions set answer = '" + ans + "' where MissionQuestionsID = " + qid);
 
-                db.MissionQuestions.Add(mq);//add the new question
-                db.SaveChanges();//save to DB
-
-                return RedirectToAction("missionFAQs", new { Mission = mmq.missions.MissionID.ToString() });
-                return null;
-            }*/
-            return View(mmq);
+                return RedirectToAction("missionFAQs", new { Mission = mid });
+            }
+            return View(mid);
         }
 
         public ViewResult Questions(string Question)
@@ -201,12 +199,23 @@ namespace MissionSite.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(user.UserID.ToString(), rememberMe);
 
-                    return RedirectToAction("missionFAQs", "Home", new { Mission = this.Session["Parameter"] });
+                    //saves name as session variable to be used in top nav bar
+                    this.Session["UserName"] = " " + user.FirstName;
+
+                    if (this.Session["Parameter"] != null)
+                    {
+                        return RedirectToAction("missionFAQs", "Home", new { Mission = this.Session["Parameter"] });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
 
             return View();
         }
+
         [HttpGet]
         public ActionResult Create()
         {

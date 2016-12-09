@@ -1,4 +1,4 @@
-﻿@model MissionSite.Models.Responce
+﻿@model MissionSite.Models.Response
 
 @{
     ViewBag.Title = "Contact";
@@ -11,7 +11,7 @@
 </p>
 
 <!--Contact Form-->
-@using (Html.BeginForm("Insert", "Responce", FormMethod.Post))
+@using (Html.BeginForm("Insert", "Response", FormMethod.Post))
 {
     <h4>First Name</h4>
     @Html.TextBoxFor(m => m.FirstName);
