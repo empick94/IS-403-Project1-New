@@ -15,6 +15,7 @@ namespace MissionSite.App_Start
                 {
                     config.MapHttpAttributeRoutes();
 
+                    //Restful API route map
                     config.Routes.MapHttpRoute(
                         name: "DefaultApi",
                         routeTemplate: "api/{controller}/{id}",
@@ -30,6 +31,7 @@ namespace MissionSite.App_Start
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            //Restful API route map
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
